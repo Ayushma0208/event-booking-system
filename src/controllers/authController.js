@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { findByEmail, createUser } from "../models/User.js";
+import { findByEmail, createUser, findUserByEmail } from "../models/User.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -33,6 +33,41 @@ export const registerUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // 1. Check if user exists
+    const user = await findUserByEmail(email);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // 2. Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // 3. Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: { id: user.id, email: user.email },
+    });
+  } catch (error) {
+    console.error("Login Error:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 };
