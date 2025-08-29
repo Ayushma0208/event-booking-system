@@ -42,25 +42,20 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // 1. Check if user exists
     const user = await findUserByEmail(email);
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
 
-    // 2. Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
-    // 3. Generate JWT token
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-
     res.json({
       message: "Login successful",
       token,
