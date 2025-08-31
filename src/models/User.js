@@ -21,3 +21,41 @@ export const findUserByEmail = async (email) => {
   const result = await pool.query(query, values);
   return result.rows[0]; // return single user
 };
+
+export const updateProfile = async (id, { name, email, password }) => {
+  try {
+    // Build dynamic update query
+    let fields = [];
+    let values = [];
+    let i = 1;
+
+    if (name) {
+      fields.push(`name = $${i++}`);
+      values.push(name);
+    }
+    if (email) {
+      fields.push(`email = $${i++}`);
+      values.push(email);
+    }
+    if (password) {
+      fields.push(`password = $${i++}`);
+      values.push(password); // (⚠️ hash password before calling model)
+    }
+
+    values.push(id); // last value for WHERE clause
+
+    const query = `
+      UPDATE users 
+      SET ${fields.join(", ")} 
+      WHERE id = $${i}
+      RETURNING id, name, email
+    `;
+
+    const result = await pool.query(query, values);
+
+    return result.rows[0];
+  } catch (err) {
+    console.error("DB error (updateProfile):", err);
+    throw err;
+  }
+};

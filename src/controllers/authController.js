@@ -62,3 +62,28 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user.id; // comes from authMiddleware (JWT decoded)
+    const { name, email, password } = req.body;
+
+    if (!name && !email && !password) {
+      return res.status(400).json({ message: "Nothing to update" });
+    }
+
+    const updatedUser = await updateProfile(userId, { name, email, password });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found or update failed" });
+    }
+
+    res.json({
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
