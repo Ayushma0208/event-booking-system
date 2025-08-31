@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { findByEmail, createUser, findUserByEmail } from "../models/User.js";
+import { findByEmail, createUser, findUserByEmail, getUserById } from "../models/User.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -21,12 +21,7 @@ export const registerUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-
-    res.status(201).json({
-      message: "User registered successfully",
-      token,
-      user,
-    });
+    res.status(201).json({message: "User registered successfully",token,user,});
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Server error" });
@@ -52,11 +47,7 @@ export const loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.json({
-      message: "Login successful",
-      token,
-      user: { id: user.id, email: user.email },
-    });
+    res.json({message: "Login successful",token,user: { id: user.id, email: user.email },});
   } catch (error) {
     console.error("Login Error:", error.message);
     res.status(500).json({ message: "Server error" });
@@ -78,10 +69,7 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found or update failed" });
     }
 
-    res.json({
-      message: "Profile updated successfully",
-      user: updatedUser,
-    });
+    res.json({message: "Profile updated successfully",user: updatedUser,});
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -93,16 +81,13 @@ export const getUserProfile = async (req, res) => {
   try {
     const userId = req.user.id; 
 
-    const user = await userModel.getUserById(userId);
+    const user = await getUserById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json({
-      message: "User profile fetched successfully",
-      user
-    });
+    res.json({message: "User profile fetched successfully",user});
   } catch (error) {
     console.error("Error fetching profile:", error);
     res.status(500).json({ message: "Internal server error" });
