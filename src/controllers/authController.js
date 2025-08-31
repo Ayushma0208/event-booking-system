@@ -65,7 +65,7 @@ export const loginUser = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    const userId = req.user.id; // comes from authMiddleware (JWT decoded)
+    const userId = req.user.id; 
     const { name, email, password } = req.body;
 
     if (!name && !email && !password) {
