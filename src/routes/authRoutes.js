@@ -8,4 +8,6 @@ router.post("/login", loginUser);
 
 router.put("/update-profile", updateProfile);
 
+router.get("/profile", getUserProfile);
+
 export default router;
