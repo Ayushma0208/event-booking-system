@@ -67,3 +67,18 @@ export const getUserById = async (id) => {
     throw err;
   }
 };
+
+
+export const deleteUserById = async (id) => {
+  try {
+    const query = "DELETE FROM users WHERE id = $1 RETURNING id, name, email";
+    const result = await pool.query(query, [id]);
+    if (result.rows.length === 0) {
+      return null;
+    }
+    return result.rows[0]; 
+  } catch (err) {
+    console.error("DB error (deleteUserById):", err);
+    throw err;
+  }
+};

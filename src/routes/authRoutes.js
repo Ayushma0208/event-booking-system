@@ -1,5 +1,5 @@
 import express from "express";
-import { loginUser, registerUser, updateProfile } from "../controllers/authController.js";
+import { deleteUser, getUserProfile, loginUser, registerUser, updateProfile } from "../controllers/authController.js";
 const router = express.Router();
 
 router.post("/register", registerUser);
@@ -10,7 +10,7 @@ router.put("/update-profile", updateProfile);
 
 router.get("/profile", getUserProfile);
 
-router.delete("/:id", deleteUser);
+router.delete("/delete", deleteUser);
 
 
 export default router;
