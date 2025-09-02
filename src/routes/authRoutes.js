@@ -10,4 +10,7 @@ router.put("/update-profile", updateProfile);
 
 router.get("/profile", getUserProfile);
 
+router.delete("/:id", deleteUser);
+
+
 export default router;
