@@ -39,10 +39,7 @@ export const getBookingByIdController = async (req, res) => {
       return res.status(404).json({ message: "Booking not found" });
     }
 
-    res.status(200).json({
-      message: "Booking fetched successfully",
-      booking
-    });
+    res.status(200).json({message: "Booking fetched successfully",booking});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -58,11 +55,7 @@ export const updateBookingController = async (req, res) => {
     if (!updatedBooking) {
       return res.status(404).json({ message: "Booking not found" });
     }
-
-    res.status(200).json({
-      message: "Booking updated successfully",
-      booking: updatedBooking
-    });
+    res.status(200).json({message: "Booking updated successfully",booking: updatedBooking});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
