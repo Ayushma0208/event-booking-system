@@ -45,3 +45,18 @@ export const getBookingById = async (bookingId) => {
   );
   return result.rows[0]; 
 };
+
+export const updateBooking = async (bookingId, updates) => {
+  const { numberOfTickets, status } = updates;
+
+  const result = await pool.query(
+    `UPDATE bookings
+     SET number_of_tickets = COALESCE($1, number_of_tickets),
+         status = COALESCE($2, status)
+     WHERE id = $3
+     RETURNING *`,
+    [numberOfTickets, status, bookingId]
+  );
+
+  return result.rows[0]; 
+};
