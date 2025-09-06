@@ -10,10 +10,7 @@ export const createBookingController = async (req, res) => {
 
     const booking = await createBooking({ eventId, userId, numberOfTickets });
 
-    res.status(201).json({
-      message: "Booking created successfully",
-      booking
-    });
+    res.status(201).json({message: "Booking created successfully",booking});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -26,10 +23,7 @@ export const getAllBookingsController = async (req, res) => {
 
     const bookings = await getAllBookings({ userId, eventId });
 
-    res.status(200).json({
-      message: "Bookings fetched successfully",
-      bookings
-    });
+    res.status(200).json({message: "Bookings fetched successfully",bookings});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
