@@ -13,4 +13,6 @@ router.put("/updateBookingId", updateBookingController);
 
 router.delete("/cancelBookingId", cancelBookingController);
 
+router.get("/availability", checkBookingAvailabilityController);
+
 export default router;

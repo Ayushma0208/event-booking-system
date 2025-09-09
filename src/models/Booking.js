@@ -71,3 +71,18 @@ export const cancelBooking = async (bookingId) => {
   );
   return result.rows[0]; 
 };
+
+export const checkBookingAvailability = async (eventId) => {
+  const result = await pool.query(
+    `SELECT e.id as event_id, e.total_tickets,
+            COALESCE(SUM(b.number_of_tickets), 0) as booked_tickets,
+            (e.total_tickets - COALESCE(SUM(b.number_of_tickets), 0)) as available_tickets
+     FROM events e
+     LEFT JOIN bookings b ON e.id = b.event_id AND b.status != 'canceled'
+     WHERE e.id = $1
+     GROUP BY e.id, e.total_tickets`,
+    [eventId]
+  );
+
+  return result.rows[0];
+};

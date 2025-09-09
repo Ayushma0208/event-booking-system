@@ -1,4 +1,4 @@
-import { cancelBooking, createBooking, getAllBookings, getBookingById, updateBooking } from "../models/Booking";
+import { cancelBooking, checkBookingAvailability, createBooking, getAllBookings, getBookingById, updateBooking } from "../models/Booking";
 
 export const createBookingController = async (req, res) => {
   try {
@@ -71,6 +71,22 @@ export const cancelBookingController = async (req, res) => {
       return res.status(404).json({ message: "Booking not found" });
     }
     res.status(200).json({message: "Booking canceled successfully",booking});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const checkBookingAvailabilityController = async (req, res) => {
+  try {
+    const { eventId } = req.query;
+
+    const availability = await checkBookingAvailability(eventId);
+
+    if (!availability) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json({message: "Availability fetched successfully",availability});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
