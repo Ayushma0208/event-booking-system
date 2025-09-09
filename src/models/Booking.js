@@ -60,3 +60,14 @@ export const updateBooking = async (bookingId, updates) => {
 
   return result.rows[0]; 
 };
+
+export const cancelBooking = async (bookingId) => {
+  const result = await pool.query(
+    `UPDATE bookings
+     SET status = 'canceled'
+     WHERE id = $1
+     RETURNING *`,
+    [bookingId]
+  );
+  return result.rows[0]; 
+};
