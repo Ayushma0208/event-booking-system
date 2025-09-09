@@ -70,11 +70,7 @@ export const cancelBookingController = async (req, res) => {
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
-
-    res.status(200).json({
-      message: "Booking canceled successfully",
-      booking
-    });
+    res.status(200).json({message: "Booking canceled successfully",booking});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
