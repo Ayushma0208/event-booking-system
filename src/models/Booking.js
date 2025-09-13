@@ -85,3 +85,24 @@ export const checkBookingAvailability = async (eventId) => {
   );
   return result.rows[0];
 };
+
+export const assignSeatToBooking = async (bookingId, seatNumbers) => {
+  
+  const booking = await pool.query("SELECT * FROM bookings WHERE id = $1", [bookingId]);
+  if (booking.rows.length === 0) return null;
+
+  const seatCheck = await pool.query(
+    "SELECT * FROM bookings WHERE seat_number = ANY($1::text[]) AND status = 'confirmed'",
+    [seatNumbers]
+  );
+  if (seatCheck.rows.length > 0) {
+    return null; 
+  }
+
+  const result = await pool.query(
+    "UPDATE bookings SET seat_number = $1 WHERE id = $2 RETURNING *",
+    [seatNumbers.join(","), bookingId]
+  );
+
+  return result.rows[0];
+};

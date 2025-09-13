@@ -1,4 +1,4 @@
-import { cancelBooking, checkBookingAvailability, createBooking, getAllBookings, getBookingById, updateBooking } from "../models/Booking";
+import { assignSeatToBooking, cancelBooking, checkBookingAvailability, createBooking, getAllBookings, getBookingById, updateBooking } from "../models/Booking";
 
 export const createBookingController = async (req, res) => {
   try {
@@ -89,5 +89,31 @@ export const checkBookingAvailabilityController = async (req, res) => {
     res.status(200).json({message: "Availability fetched successfully",availability});
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+
+export const assignSeat = async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+    const { seatNumbers } = req.body; 
+
+    if (!seatNumbers || seatNumbers.length === 0) {
+      return res.status(400).json({ message: "Seat numbers are required" });
+    }
+
+    const updatedBooking = await assignSeatToBooking(bookingId, seatNumbers);
+
+    if (!updatedBooking) {
+      return res.status(404).json({ message: "Booking not found or seat unavailable" });
+    }
+
+    res.status(200).json({
+      message: "Seats assigned successfully",
+      booking: updatedBooking,
+    });
+  } catch (error) {
+    console.error("Error assigning seat:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

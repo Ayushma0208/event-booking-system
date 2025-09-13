@@ -1,5 +1,5 @@
 import express from "express"
-import { cancelBookingController, checkBookingAvailabilityController, createBookingController, getAllBookingsController, getBookingByIdController, updateBookingController } from "../controllers/bookingController";
+import { assignSeat, cancelBookingController, checkBookingAvailabilityController, createBookingController, getAllBookingsController, getBookingByIdController, updateBookingController } from "../controllers/bookingController";
 
 const router = express.Router();
 
@@ -14,5 +14,7 @@ router.put("/updateBookingId", updateBookingController);
 router.delete("/cancelBookingId", cancelBookingController);
 
 router.get("/availability", checkBookingAvailabilityController);
+
+router.post("/bookings/:id/assign-seat", assignSeat);
 
 export default router;
