@@ -83,6 +83,5 @@ export const checkBookingAvailability = async (eventId) => {
      GROUP BY e.id, e.total_tickets`,
     [eventId]
   );
-
   return result.rows[0];
 };

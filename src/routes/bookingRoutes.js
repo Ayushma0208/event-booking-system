@@ -1,5 +1,5 @@
 import express from "express"
-import { cancelBookingController, createBookingController, getAllBookingsController, getBookingByIdController, updateBookingController } from "../controllers/bookingController";
+import { cancelBookingController, checkBookingAvailabilityController, createBookingController, getAllBookingsController, getBookingByIdController, updateBookingController } from "../controllers/bookingController";
 
 const router = express.Router();
 
