@@ -85,7 +85,6 @@ export const checkBookingAvailabilityController = async (req, res) => {
     if (!availability) {
       return res.status(404).json({ message: "Event not found" });
     }
-
     res.status(200).json({message: "Availability fetched successfully",availability});
   } catch (error) {
     res.status(500).json({ message: error.message });
