@@ -107,10 +107,7 @@ export const assignSeat = async (req, res) => {
       return res.status(404).json({ message: "Booking not found or seat unavailable" });
     }
 
-    res.status(200).json({
-      message: "Seats assigned successfully",
-      booking: updatedBooking,
-    });
+    res.status(200).json({message: "Seats assigned successfully",booking: updatedBooking,});
   } catch (error) {
     console.error("Error assigning seat:", error);
     res.status(500).json({ message: "Internal Server Error" });
