@@ -1,4 +1,4 @@
-import { assignSeatToBooking, cancelBooking, checkBookingAvailability, createBooking, getAllBookings, getBookingById, updateBooking } from "../models/Booking";
+import { assignSeatToBooking, cancelBooking, checkBookingAvailability, createBooking, getAllBookings, getBookingById, updateBooking } from "../models/Booking.js";
 
 export const createBookingController = async (req, res) => {
   try {
