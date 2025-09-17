@@ -5,9 +5,9 @@ services:
     build: .
     container_name: event_booking_app
     ports:
-      - "5000:5000"   # host:container
+      - "5000:5000"   
     env_file:
-      - .env          # load environment variables
+      - .env          
     volumes:
-      - .:/app        # mount local code for live reload in dev
+      - .:/app        
     restart: unless-stopped
