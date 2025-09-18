@@ -21,7 +21,8 @@ export const registerUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    res.status(201).json({message: "User registered successfully",token,user,});
+
+    return res.status(201).json({message: "User registered successfully",token,user,});
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Server error" });
@@ -47,7 +48,7 @@ export const loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res.json({message: "Login successful",token,user: { id: user.id, email: user.email },});
+    return res.json({message: "Login successful",token,user: { id: user.id, email: user.email },});
   } catch (error) {
     console.error("Login Error:", error.message);
     res.status(500).json({ message: "Server error" });
@@ -69,7 +70,7 @@ export const updateProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found or update failed" });
     }
 
-    res.json({message: "Profile updated successfully",user: updatedUser,});
+    return res.json({message: "Profile updated successfully",user: updatedUser,});
   } catch (error) {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -84,10 +85,10 @@ export const getUserProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.json({message: "User profile fetched successfully",user});
+    return res.json({message: "User profile fetched successfully",user});
   } catch (error) {
     console.error("Error fetching profile:", error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -101,9 +102,9 @@ export const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({message: "User deleted successfully",user: deletedUser});
+    return res.status(200).json({message: "User deleted successfully",user: deletedUser});
   } catch (error) {
     console.error("Controller error (deleteUser):", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 };
