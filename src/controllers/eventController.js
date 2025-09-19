@@ -16,7 +16,7 @@ export const createEventController = async (req, res) => {
   }
 };
 
-// Get All Events
+
 export const getAllEventsController = async (req, res) => {
   try {
     const events = await getAllEvents();
@@ -27,10 +27,10 @@ export const getAllEventsController = async (req, res) => {
   }
 };
 
-// Get Single Event
+
 export const getEventByIdController = async (req, res) => {
   try {
-    const id = parseInt(req.params.id);
+    const id = req.query.id;
     const event = await getEventById(id);
 
     if (!event) {
