@@ -20,7 +20,7 @@ export const createEventController = async (req, res) => {
 export const getAllEventsController = async (req, res) => {
   try {
     const events = await getAllEvents();
-    res.json(events);
+    res.status(201).json({ success: true, events });
   } catch (error) {
     console.error("Error fetching events:", error);
     res.status(500).json({ success: false, message: "Server error" });
