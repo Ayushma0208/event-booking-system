@@ -32,11 +32,9 @@ export const getEventByIdController = async (req, res) => {
   try {
     const id = req.query.id;
     const event = await getEventById(id);
-
     if (!event) {
       return res.status(404).json({ success: false, message: "Event not found" });
     }
-
     res.json(event);
   } catch (error) {
     console.error("Error fetching event:", error);
@@ -49,13 +47,11 @@ export const updateEventController = async (req, res) => {
   try {
     const { id } = req.params;
     const eventData = req.body; 
-
     const updatedEvent = await updateEvent(id, eventData);
 
     if (!updatedEvent) {
       return res.status(404).json({ message: "Event not found" });
     }
-
     res.status(200).json({message: "Event updated successfully",event: updatedEvent,});
   } catch (error) {
     console.error("Error updating event:", error);
@@ -68,11 +64,9 @@ export const deleteEventController = async (req, res) => {
     const { id } = req.params;
 
     const deletedEvent = await deleteEvent(id);
-
     if (!deletedEvent) {
       return res.status(404).json({ message: "Event not found" });
     }
-
     res.status(200).json({message: "Event deleted successfully",event: deletedEvent,});
   } catch (error) {
     console.error("Error deleting event:", error);
@@ -88,9 +82,7 @@ export const registerForEventController = async (req, res) => {
     if (!userId || !numberOfTickets) {
       return res.status(400).json({ message: "userId and numberOfTickets are required" });
     }
-
     const registration = await registerForEvent(eventId, userId, numberOfTickets);
-
     res.status(201).json({message: "Registration successful",registration,});
   } catch (error) {
     console.error("Error registering for event:", error);
@@ -103,17 +95,12 @@ export const cancelEventController = async (req, res) => {
     const { id } = req.params;
 
     const canceledEvent = await cancelEvent(id);
-
     if (!canceledEvent) {
       return res.status(404).json({ message: "Event not found" });
     }
-
-    res.status(200).json({
-      message: "Event canceled successfully",
-      event: canceledEvent,
-    });
+    res.status(200).json({message: "Event canceled successfully",event: canceledEvent,});
   } catch (error) {
     console.error("Error canceling event:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
+}
