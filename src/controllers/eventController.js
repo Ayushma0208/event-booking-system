@@ -91,10 +91,7 @@ export const registerForEventController = async (req, res) => {
 
     const registration = await registerForEvent(eventId, userId, numberOfTickets);
 
-    res.status(201).json({
-      message: "Registration successful",
-      registration,
-    });
+    res.status(201).json({message: "Registration successful",registration,});
   } catch (error) {
     console.error("Error registering for event:", error);
     res.status(500).json({ error: "Internal server error" });
