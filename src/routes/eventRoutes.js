@@ -4,7 +4,9 @@ import { createEventController, getAllEventsController, getEventByIdController }
 const router = express.Router();
 
 router.post("/CreateEvents", createEventController);
+
 router.get("/getAllEvents", getAllEventsController);
+
 router.get("/getSingleEvents", getEventByIdController);
 
 export default router;
