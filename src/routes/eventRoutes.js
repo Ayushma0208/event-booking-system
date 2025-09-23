@@ -1,5 +1,5 @@
 import express from "express"
-import { createEventController, deleteEventController, getAllEventsController, getEventByIdController, registerForEventController, updateEventController } from "../controllers/eventController.js";
+import { cancelEventController, createEventController, deleteEventController, getAllEventsController, getEventByIdController, registerForEventController, updateEventController } from "../controllers/eventController.js";
 
 const router = express.Router();
 
@@ -14,5 +14,7 @@ router.put("/updateEvent/:id", updateEventController);
 router.delete("/deleteEvent/:id", deleteEventController);
 
 router.post("/register/:eventId", registerForEventController);
+
+router.patch("/cancelEvent/:id", cancelEventController);
 
 export default router;
