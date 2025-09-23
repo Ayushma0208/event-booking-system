@@ -56,10 +56,7 @@ export const updateEventController = async (req, res) => {
       return res.status(404).json({ message: "Event not found" });
     }
 
-    res.status(200).json({
-      message: "Event updated successfully",
-      event: updatedEvent,
-    });
+    res.status(200).json({message: "Event updated successfully",event: updatedEvent,});
   } catch (error) {
     console.error("Error updating event:", error);
     res.status(500).json({ error: "Internal server error" });
