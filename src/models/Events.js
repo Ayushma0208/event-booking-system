@@ -32,4 +32,15 @@ export const updateEvent = async (id, { title, description, date, location }) =>
   );
 
   return result.rows[0];
-};
+}
+
+export const deleteEvent = async (id) => {
+  const result = await pool.query(
+    `DELETE FROM events 
+     WHERE id = $1
+     RETURNING *`,
+    [id]
+  );
+
+  return result.rows[0];
+}
