@@ -21,3 +21,15 @@ export const getEventById = async (id) => {
   const result = await pool.query(`SELECT * FROM events WHERE id = $1`, [id]);
   return result.rows[0];
 };
+
+export const updateEvent = async (id, { title, description, date, location }) => {
+  const result = await pool.query(
+    `UPDATE events 
+     SET title = $1, description = $2, date = $3, location = $4
+     WHERE id = $5
+     RETURNING *`,
+    [title, description, date, location, id]
+  );
+
+  return result.rows[0];
+};

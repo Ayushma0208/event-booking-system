@@ -1,4 +1,4 @@
-import { createEvent, getAllEvents, getEventById } from "../models/Events.js";
+import { createEvent, getAllEvents, getEventById, updateEvent } from "../models/Events.js";
 
 export const createEventController = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ export const createEventController = async (req, res) => {
     console.error("Error creating event:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
-};
+}
 
 
 export const getAllEventsController = async (req, res) => {
@@ -25,7 +25,7 @@ export const getAllEventsController = async (req, res) => {
     console.error("Error fetching events:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
-};
+}
 
 
 export const getEventByIdController = async (req, res) => {
@@ -42,4 +42,26 @@ export const getEventByIdController = async (req, res) => {
     console.error("Error fetching event:", error);
     res.status(500).json({ success: false, message: "Server error" });
   }
-};
+}
+
+
+export const updateEventController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const eventData = req.body; 
+
+    const updatedEvent = await updateEvent(id, eventData);
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json({
+      message: "Event updated successfully",
+      event: updatedEvent,
+    });
+  } catch (error) {
+    console.error("Error updating event:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}

@@ -9,4 +9,7 @@ router.get("/getAllEvents", getAllEventsController);
 
 router.get("/getSingleEvents", getEventByIdController);
 
+router.put("/updateEvent/:id", updateEventController);
+
+
 export default router;
