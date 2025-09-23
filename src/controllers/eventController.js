@@ -1,4 +1,4 @@
-import { createEvent, deleteEvent, getAllEvents, getEventById, updateEvent } from "../models/Events.js";
+import { createEvent, deleteEvent, getAllEvents, getEventById, registerForEvent, updateEvent } from "../models/Events.js";
 
 export const createEventController = async (req, res) => {
   try {
@@ -76,6 +76,27 @@ export const deleteEventController = async (req, res) => {
     res.status(200).json({message: "Event deleted successfully",event: deletedEvent,});
   } catch (error) {
     console.error("Error deleting event:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+export const registerForEventController = async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const { userId, numberOfTickets } = req.body;
+
+    if (!userId || !numberOfTickets) {
+      return res.status(400).json({ message: "userId and numberOfTickets are required" });
+    }
+
+    const registration = await registerForEvent(eventId, userId, numberOfTickets);
+
+    res.status(201).json({
+      message: "Registration successful",
+      registration,
+    });
+  } catch (error) {
+    console.error("Error registering for event:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }

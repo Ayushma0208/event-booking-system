@@ -13,4 +13,6 @@ router.put("/updateEvent/:id", updateEventController);
 
 router.delete("/deleteEvent/:id", deleteEventController);
 
+router.post("/register/:eventId", registerForEventController);
+
 export default router;

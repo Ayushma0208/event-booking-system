@@ -44,3 +44,27 @@ export const deleteEvent = async (id) => {
 
   return result.rows[0];
 }
+
+export const registerForEvent = async (eventId, userId, numberOfTickets) => {
+  const result = await pool.query(
+    `INSERT INTO event_registrations (event_id, user_id, number_of_tickets, status)
+     VALUES ($1, $2, $3, $4)
+     RETURNING *`,
+    [eventId, userId, numberOfTickets, "confirmed"]
+  );
+
+  return result.rows[0];
+};
+
+
+export const cancelEvent = async (id) => {
+  const result = await pool.query(
+    `UPDATE events 
+     SET status = $1
+     WHERE id = $2
+     RETURNING *`,
+    ["canceled", id]
+  );
+
+  return result.rows[0];
+};
