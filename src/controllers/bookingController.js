@@ -14,7 +14,7 @@ export const createBookingController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 
 export const getAllBookingsController = async (req, res) => {
@@ -27,7 +27,7 @@ export const getAllBookingsController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 export const getBookingByIdController = async (req, res) => {
   try {
@@ -43,7 +43,7 @@ export const getBookingByIdController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 export const updateBookingController = async (req, res) => {
   try {
@@ -59,7 +59,7 @@ export const updateBookingController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 export const cancelBookingController = async (req, res) => {
   try {
@@ -74,7 +74,7 @@ export const cancelBookingController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 export const checkBookingAvailabilityController = async (req, res) => {
   try {
@@ -89,7 +89,7 @@ export const checkBookingAvailabilityController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 
 export const assignSeat = async (req, res) => {
@@ -112,4 +112,4 @@ export const assignSeat = async (req, res) => {
     console.error("Error assigning seat:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-};
+}

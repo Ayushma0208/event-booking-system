@@ -3,11 +3,9 @@ import { cancelEvent, createEvent, deleteEvent, getAllEvents, getEventById, regi
 export const createEventController = async (req, res) => {
   try {
     const { title, description, date, location, capacity, price } = req.body;
-
     if (!title || !date || !location || !capacity) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
-
     const event = await createEvent({ title, description, date, location, capacity, price });
     res.status(201).json({ success: true, event });
   } catch (error) {
