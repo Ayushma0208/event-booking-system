@@ -94,7 +94,7 @@ export const getUserProfile = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.user.id;
 
     const deletedUser = await deleteUserById(userId);
 

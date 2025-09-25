@@ -7,9 +7,9 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.put("/update-profile", updateProfile);
+router.put("/update-profile", authMiddleware,updateProfile);
 
-router.get("/profile", getUserProfile);
+router.get("/profile", authMiddleware, getUserProfile);
 
 router.delete("/delete", deleteUser);
 
