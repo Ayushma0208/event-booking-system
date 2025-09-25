@@ -82,3 +82,17 @@ export const deleteUserById = async (id) => {
     throw err;
   }
 };
+
+
+export const findUserById = async (id) => {
+  const result = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+  return result.rows[0];
+};
+
+
+export const updateUserPassword = async (id, hashedPassword) => {
+  await pool.query("UPDATE users SET password = $1 WHERE id = $2", [
+    hashedPassword,
+    id,
+  ]);
+};

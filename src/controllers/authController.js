@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { findByEmail, createUser, findUserByEmail, getUserById, deleteUserById } from "../models/User.js";
+import { findByEmail, createUser, findUserByEmail, getUserById, deleteUserById, findUserById } from "../models/User.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -105,6 +105,36 @@ export const deleteUser = async (req, res) => {
     return res.status(200).json({message: "User deleted successfully",user: deletedUser});
   } catch (error) {
     console.error("Controller error (deleteUser):", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const changePasswordController = async (req, res) => {
+  try {
+    const userId = req.user.id; 
+    const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ message: "Both old and new passwords are required" });
+    }
+
+    const user = await findUserById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Old password is incorrect" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await updateUserPassword(userId, hashedPassword);
+
+    return res.json({ message: "Password changed successfully" });
+  } catch (err) {
+    console.error("Error changing password:", err);
     return res.status(500).json({ message: "Server error" });
   }
 };
