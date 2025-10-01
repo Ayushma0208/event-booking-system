@@ -21,3 +21,14 @@ export const getFeedbackByEvent = async (eventId) => {
   const result = await pool.query(query, [eventId]);
   return result.rows;
 };
+
+export const updateFeedback = async (id, rating, comment) => {
+  const query = `
+    UPDATE feedback
+    SET rating = $1, comment = $2, created_at = CURRENT_TIMESTAMP
+    WHERE id = $3 RETURNING *;
+  `;
+  const values = [rating, comment, id];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
