@@ -1,4 +1,4 @@
-import { addFeedback, getFeedbackByEvent, updateFeedback } from "../models/Feedback.js";
+import { addFeedback, deleteFeedback, getFeedbackByEvent, updateFeedback } from "../models/Feedback.js";
 
 
 export const addFeedbackController = async (req, res) => {
@@ -35,6 +35,22 @@ export const updateFeedbackController = async (req, res) => {
     }
 
     res.json({ message: "Feedback updated successfully", feedback });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const deleteFeedbackController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await deleteFeedback(id);
+
+    if (!feedback) {
+      return res.status(404).json({ message: "Feedback not found" });
+    }
+
+    res.json({ message: "Feedback deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

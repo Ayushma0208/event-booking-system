@@ -32,3 +32,9 @@ export const updateFeedback = async (id, rating, comment) => {
   const result = await pool.query(query, values);
   return result.rows[0];
 };
+
+export const deleteFeedback = async (id) => {
+  const query = "DELETE FROM feedback WHERE id = $1 RETURNING *;";
+  const result = await pool.query(query, [id]);
+  return result.rows[0];
+};
