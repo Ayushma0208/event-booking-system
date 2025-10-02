@@ -3,7 +3,7 @@ import { addFeedback, deleteFeedback, getFeedbackByEvent, updateFeedback } from 
 
 export const addFeedbackController = async (req, res) => {
   try {
-    const { eventId } = req.params;
+    const { eventId } = req.query;
     const { user_id, rating, comment } = req.body;
 
     const feedback = await addFeedback(eventId, user_id, rating, comment);
@@ -15,7 +15,7 @@ export const addFeedbackController = async (req, res) => {
 
 export const getFeedbackByEventController = async (req, res) => {
   try {
-    const { eventId } = req.params;
+    const { eventId } = req.query;
     const feedbacks = await getFeedbackByEvent(eventId);
     res.json(feedbacks);
   } catch (err) {
@@ -25,7 +25,7 @@ export const getFeedbackByEventController = async (req, res) => {
 
 export const updateFeedbackController = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const { rating, comment } = req.body;
 
     const feedback = await updateFeedback(id, rating, comment);
@@ -42,7 +42,7 @@ export const updateFeedbackController = async (req, res) => {
 
 export const deleteFeedbackController = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
 
     const feedback = await deleteFeedback(id);
 
