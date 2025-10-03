@@ -68,3 +68,16 @@ export const cancelEvent = async (id) => {
 
   return result.rows[0];
 };
+
+export const getUpcomingEventsForUser = async (userId) => {
+  const query = `
+    SELECT e.id, e.title, e.description, e.start_time, e.end_time, e.status
+    FROM bookings b
+    JOIN events e ON b.event_id = e.id
+    WHERE b.user_id = $1
+      AND e.start_time > NOW()
+    ORDER BY e.start_time ASC;
+  `;
+  const result = await pool.query(query, [userId]);
+  return result.rows;
+};
