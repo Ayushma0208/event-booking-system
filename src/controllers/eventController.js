@@ -1,4 +1,4 @@
-import { cancelEvent, createEvent, deleteEvent, getAllEvents, getEventById, getUpcomingEventsForUser, registerForEvent, updateEvent } from "../models/Events.js";
+import { cancelEvent, createEvent, deleteEvent, getAllEvents, getEventById, getPastEventsForUser, getUpcomingEventsForUser, registerForEvent, updateEvent } from "../models/Events.js";
 
 export const createEventController = async (req, res) => {
   try {
@@ -107,6 +107,16 @@ export const getUpcomingEventsForUserController = async (req, res) => {
   try {
     const { userId } = req.params;
     const events = await getUpcomingEventsForUser(userId);
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getPastEventsForUserController = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const events = await getPastEventsForUser(userId);
     res.json(events);
   } catch (err) {
     res.status(500).json({ error: err.message });

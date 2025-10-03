@@ -81,3 +81,16 @@ export const getUpcomingEventsForUser = async (userId) => {
   const result = await pool.query(query, [userId]);
   return result.rows;
 };
+
+export const getPastEventsForUser = async (userId) => {
+  const query = `
+    SELECT e.id, e.title, e.description, e.start_time, e.end_time, e.status
+    FROM bookings b
+    JOIN events e ON b.event_id = e.id
+    WHERE b.user_id = $1
+      AND e.end_time < NOW()
+    ORDER BY e.end_time DESC;
+  `;
+  const result = await pool.query(query, [userId]);
+  return result.rows;
+};
