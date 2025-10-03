@@ -8,7 +8,7 @@ export const addFeedback = async (eventId, user_id, rating, comment) => {
   const values = [eventId, user_id, rating, comment];
   const result = await pool.query(query, values);
   return result.rows[0];
-};
+}
 
 export const getFeedbackByEvent = async (eventId) => {
   const query = `
@@ -20,7 +20,7 @@ export const getFeedbackByEvent = async (eventId) => {
   `;
   const result = await pool.query(query, [eventId]);
   return result.rows;
-};
+}
 
 export const updateFeedback = async (id, rating, comment) => {
   const query = `
@@ -31,10 +31,10 @@ export const updateFeedback = async (id, rating, comment) => {
   const values = [rating, comment, id];
   const result = await pool.query(query, values);
   return result.rows[0];
-};
+}
 
 export const deleteFeedback = async (id) => {
   const query = "DELETE FROM feedback WHERE id = $1 RETURNING *;";
   const result = await pool.query(query, [id]);
   return result.rows[0];
-};
+}

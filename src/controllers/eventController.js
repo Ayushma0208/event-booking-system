@@ -111,7 +111,7 @@ export const getUpcomingEventsForUserController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
 export const getPastEventsForUserController = async (req, res) => {
   try {
@@ -121,4 +121,4 @@ export const getPastEventsForUserController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}

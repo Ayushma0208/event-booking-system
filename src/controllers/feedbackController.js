@@ -11,7 +11,7 @@ export const addFeedbackController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
 export const getFeedbackByEventController = async (req, res) => {
   try {
@@ -21,7 +21,7 @@ export const getFeedbackByEventController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
 export const updateFeedbackController = async (req, res) => {
   try {
@@ -38,7 +38,7 @@ export const updateFeedbackController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
 
 export const deleteFeedbackController = async (req, res) => {
   try {
@@ -54,4 +54,4 @@ export const deleteFeedbackController = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
