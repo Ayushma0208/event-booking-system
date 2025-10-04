@@ -50,4 +50,4 @@ export const getFeedbackByUser = async (userId) => {
   `;
   const result = await pool.query(query, [userId]);
   return result.rows;
-};
+}

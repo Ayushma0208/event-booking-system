@@ -10,7 +10,7 @@ router.put("/updateFeedback", updateFeedbackController)
 
 router.delete("/deleteFeedback", deleteFeedbackController)
 
-router.get("/users/:userId/feedback", getFeedbackByUserController);
+router.get("/users/:userId/feedback", getFeedbackByUserController)
 
 
 export default router;
