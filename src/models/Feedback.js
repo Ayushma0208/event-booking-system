@@ -38,3 +38,16 @@ export const deleteFeedback = async (id) => {
   const result = await pool.query(query, [id]);
   return result.rows[0];
 }
+
+export const getFeedbackByUser = async (userId) => {
+  const query = `
+    SELECT f.id, f.rating, f.comment, f.created_at,
+           e.id AS event_id, e.title AS event_title, e.start_time, e.end_time
+    FROM feedback f
+    JOIN events e ON f.event_id = e.id
+    WHERE f.user_id = $1
+    ORDER BY f.created_at DESC;
+  `;
+  const result = await pool.query(query, [userId]);
+  return result.rows;
+};
