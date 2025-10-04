@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 export const authMiddleware = (req, res, next) => {
   try {
-    // 🔍 Get token from header
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -11,13 +10,11 @@ export const authMiddleware = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    // 🔑 Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // ✅ Attach user info to request
     req.user = { id: decoded.id, email: decoded.email };
 
-    next(); // continue to controller
+    next(); 
   } catch (err) {
     console.error("Auth error:", err);
     return res.status(401).json({ message: "Invalid or expired token" });
