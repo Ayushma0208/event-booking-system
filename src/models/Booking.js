@@ -7,7 +7,6 @@ export const createBooking = async ({ eventId, userId, numberOfTickets, status }
      RETURNING *`,
     [eventId, userId, numberOfTickets, status || 'confirmed']
   );
-
   return result.rows[0];
 };
 
@@ -21,12 +20,10 @@ export const getAllBookings = async (filters = {}) => {
     values.push(filters.userId);
     conditions.push(`user_id = $${values.length}`);
   }
-
   if (filters.eventId) {
     values.push(filters.eventId);
     conditions.push(`event_id = $${values.length}`);
   }
-
   if (conditions.length) {
     baseQuery += " WHERE " + conditions.join(" AND ");
   }
