@@ -34,7 +34,6 @@ export const getAllBookings = async (filters = {}) => {
   return result.rows;
 };
 
-
 export const getBookingById = async (bookingId) => {
   const result = await pool.query(
     "SELECT * FROM bookings WHERE id = $1",
