@@ -1,9 +1,11 @@
 import express from "express"
 import { cancelEventController, createEventController, deleteEventController, getAllEventsController, getEventByIdController, getPastEventsForUserController, getUpcomingEventsForUserController, registerForEventController, updateEventController } from "../controllers/eventController.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import { roleMiddleware } from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-router.post("/CreateEvents", createEventController)
+router.post("/CreateEvents",authMiddleware,roleMiddleware(["admin", "organizer"]), createEventController)
 
 router.get("/getAllEvents", getAllEventsController)
 
@@ -15,7 +17,7 @@ router.delete("/deleteEvent/:id", deleteEventController)
 
 router.post("/register/:eventId", registerForEventController)
 
-router.patch("/cancelEvent/:id", cancelEventController)
+router.patch("/cancelEvent/:id",authMiddleware, cancelEventController)
 
 router.get("/users/:userId/upcoming-events", getUpcomingEventsForUserController)
 
