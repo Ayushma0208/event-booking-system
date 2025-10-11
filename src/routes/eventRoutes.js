@@ -5,17 +5,17 @@ import { roleMiddleware } from "../middleware/roleMiddleware.js";
 
 const router = express.Router();
 
-router.post("/CreateEvents",authMiddleware,roleMiddleware(["admin", "organizer"]), createEventController)
+router.post("/CreateEvents", createEventController)
 
 router.get("/getAllEvents", getAllEventsController)
 
 router.get("/getSingleEvents", getEventByIdController)
 
-router.put("/updateEvent/:id", updateEventController)
+router.put("/updateEvent/:id",authMiddleware,roleMiddleware(["admin", "organizer"]) ,updateEventController)
 
-router.delete("/deleteEvent/:id", deleteEventController)
+router.delete("/deleteEvent/:id",authMiddleware,roleMiddleware(["admin", "organizer"]), deleteEventController)
 
-router.post("/register/:eventId", registerForEventController)
+router.post("/register/:eventId" ,authMiddleware,roleMiddleware(["admin", "organizer"]), registerForEventController)
 
 router.patch("/cancelEvent/:id",authMiddleware, cancelEventController)
 
