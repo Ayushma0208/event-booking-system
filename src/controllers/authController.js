@@ -47,7 +47,7 @@ export const loginUser = async (req, res) => {
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
-    );
+    )
     return res.json({message: "Login successful",token,user: { id: user.id, email: user.email },});
   } catch (error) {
     console.error("Login Error:", error.message);
@@ -75,7 +75,7 @@ export const updateProfile = async (req, res) => {
     console.error("Error updating profile:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+}
 
 
 export const getUserProfile = async (req, res) => {
@@ -90,7 +90,7 @@ export const getUserProfile = async (req, res) => {
     console.error("Error fetching profile:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
-};
+}
 
 export const deleteUser = async (req, res) => {
   try {
@@ -107,7 +107,7 @@ export const deleteUser = async (req, res) => {
     console.error("Controller error (deleteUser):", error);
     return res.status(500).json({ message: "Server error" });
   }
-};
+}
 
 export const changePasswordController = async (req, res) => {
   try {
@@ -137,4 +137,4 @@ export const changePasswordController = async (req, res) => {
     console.error("Error changing password:", err);
     return res.status(500).json({ message: "Server error" });
   }
-};
+}
