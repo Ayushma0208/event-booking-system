@@ -11,7 +11,7 @@ router.put("/update-profile", authMiddleware,updateProfile)
 
 router.get("/profile", authMiddleware, getUserProfile)
 
-router.delete("/delete", deleteUser)
+router.delete("/delete",authMiddleware, deleteUser)
 
 router.patch("/change-password", authMiddleware, changePasswordController)
 
