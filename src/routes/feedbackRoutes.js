@@ -9,7 +9,7 @@ router.get("/getFeedback", getFeedbackByEventController)
 
 router.put("/updateFeedback",authMiddleware, updateFeedbackController)
 
-router.delete("/deleteFeedback", deleteFeedbackController)
+router.delete("/deleteFeedback", authMiddleware, deleteFeedbackController)
 
 router.get("/users/:userId/feedback", getFeedbackByUserController)
 
