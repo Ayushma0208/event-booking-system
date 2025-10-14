@@ -11,7 +11,7 @@ router.put("/updateFeedback",authMiddleware, updateFeedbackController)
 
 router.delete("/deleteFeedback", authMiddleware, deleteFeedbackController)
 
-router.get("/users/:userId/feedback", getFeedbackByUserController)
+router.get("/users/:userId", getFeedbackByUserController)
 
 
 export default router;
