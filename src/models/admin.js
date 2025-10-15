@@ -11,9 +11,14 @@ export const createAdmin = async (name, email, password) => {
   return result.rows[0];
 };
 
-// 🔹 Find admin by email
 export const findAdminByEmail = async (email) => {
   const query = "SELECT * FROM admins WHERE email = $1";
   const result = await pool.query(query, [email]);
+  return result.rows[0];
+};
+
+export const findAdminById = async (id) => {
+  const query = "SELECT id, name, email, role, created_at FROM admins WHERE id = $1";
+  const result = await pool.query(query, [id]);
   return result.rows[0];
 };
