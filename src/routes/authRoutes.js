@@ -15,5 +15,4 @@ router.delete("/delete",authMiddleware, deleteUser)
 
 router.patch("/change-password", authMiddleware, changePasswordController)
 
-
 export default router;
