@@ -1,5 +1,5 @@
 import express from "express";
-import { getAdmin, loginAdmin, signupAdmin } from "../controllers/adminController.js";
+import { getAdmin, loginAdmin, signupAdmin, updateAdminController } from "../controllers/adminController.js";
 const router = express.Router();
 
 router.post("/signup", signupAdmin);
@@ -7,5 +7,7 @@ router.post("/signup", signupAdmin);
 router.post("/login", loginAdmin);
 
 router.get("/:id", getAdmin);
+
+router.put("/:id", updateAdminController);
 
 export default router;

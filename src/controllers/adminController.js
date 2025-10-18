@@ -1,4 +1,4 @@
-import { createAdmin, findAdminByEmail, getAdminById } from "../models/admin.js";
+import { createAdmin, findAdminByEmail, getAdminById, updateAdmin } from "../models/admin.js";
 
 export const signupAdmin = async (req, res) => {
   try {
@@ -60,4 +60,24 @@ export const getAdmin = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error fetching admin", error: error.message });
   }
-};
+}
+
+export const updateAdminController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, role } = req.body;
+
+    const updatedAdmin = await updateAdmin(id, name, email, role);
+
+    if (!updatedAdmin) {
+      return res.status(404).json({ message: "Admin not found or update failed" });
+    }
+
+    res.status(200).json({
+      message: "Admin updated successfully",
+      admin: updatedAdmin
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating admin", error: error.message });
+  }
+}

@@ -30,3 +30,14 @@ export const getAdminById = async (adminId) => {
   );
   return result.rows[0];
 };
+
+export const updateAdmin = async (adminId, name, email, role) => {
+  const result = await pool.query(
+    `UPDATE admins 
+     SET name = $1, email = $2, role = $3 
+     WHERE id = $4 
+     RETURNING id, name, email, role`,
+    [name, email, role, adminId]
+  );
+  return result.rows[0];
+};
