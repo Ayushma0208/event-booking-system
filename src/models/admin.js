@@ -22,3 +22,11 @@ export const findAdminById = async (id) => {
   const result = await pool.query(query, [id]);
   return result.rows[0];
 };
+
+export const getAdminById = async (adminId) => {
+  const result = await pool.query(
+    "SELECT id, name, email, role FROM admins WHERE id = $1",
+    [adminId]
+  );
+  return result.rows[0];
+};

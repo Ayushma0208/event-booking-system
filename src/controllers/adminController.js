@@ -1,4 +1,4 @@
-import { createAdmin, findAdminByEmail } from "../models/admin.js";
+import { createAdmin, findAdminByEmail, getAdminById } from "../models/admin.js";
 
 export const signupAdmin = async (req, res) => {
   try {
@@ -44,5 +44,20 @@ export const loginAdmin = async (req, res) => {
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const admin = await getAdminById(id);
+
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    res.status(200).json(admin);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching admin", error: error.message });
   }
 };
