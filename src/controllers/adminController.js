@@ -51,11 +51,9 @@ export const getAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     const admin = await getAdminById(id);
-
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     }
-
     res.status(200).json(admin);
   } catch (error) {
     res.status(500).json({ message: "Error fetching admin", error: error.message });
@@ -72,11 +70,7 @@ export const updateAdminController = async (req, res) => {
     if (!updatedAdmin) {
       return res.status(404).json({ message: "Admin not found or update failed" });
     }
-
-    res.status(200).json({
-      message: "Admin updated successfully",
-      admin: updatedAdmin
-    });
+    res.status(200).json({message: "Admin updated successfully",admin: updatedAdmin});
   } catch (error) {
     res.status(500).json({ message: "Error updating admin", error: error.message });
   }
