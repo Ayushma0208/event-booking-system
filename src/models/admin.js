@@ -9,19 +9,19 @@ export const createAdmin = async (name, email, password) => {
   const values = [name, email, password];
   const result = await pool.query(query, values);
   return result.rows[0];
-};
+}
 
 export const findAdminByEmail = async (email) => {
   const query = "SELECT * FROM admins WHERE email = $1";
   const result = await pool.query(query, [email]);
   return result.rows[0];
-};
+}
 
 export const findAdminById = async (id) => {
   const query = "SELECT id, name, email, role, created_at FROM admins WHERE id = $1";
   const result = await pool.query(query, [id]);
   return result.rows[0];
-};
+}
 
 export const getAdminById = async (adminId) => {
   const result = await pool.query(
@@ -29,7 +29,7 @@ export const getAdminById = async (adminId) => {
     [adminId]
   );
   return result.rows[0];
-};
+}
 
 export const updateAdmin = async (adminId, name, email, role) => {
   const result = await pool.query(
@@ -40,4 +40,4 @@ export const updateAdmin = async (adminId, name, email, role) => {
     [name, email, role, adminId]
   );
   return result.rows[0];
-};
+}
